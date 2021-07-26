@@ -65,11 +65,11 @@ public class InvoiceXmlOutputServiceImpl implements InvoiceXmlOutputService {
                                 new OutputStreamWriter(zos));
                         jaxbMarshaller.marshal(new InvoiceXmlBeanList(xmlBeanList), writer);
                     } catch (JAXBException e) {
-                        e.printStackTrace();
+                        log.error("Unable to write XML beans to response output stream. Error message: " + e.getMessage());
                     }
                     zos.closeEntry();
                 } catch (Exception ex) {
-                    log.error(ex.getMessage());
+                    log.error("Unable to read the input CSV file. Error message: " + ex.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class InvoiceXmlOutputServiceImpl implements InvoiceXmlOutputService {
             byte[] decodedBytes = Base64.getDecoder().decode(base64EncodedString);
             FileUtils.writeByteArrayToFile(new File(fileName), decodedBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Unable to convert Base64 string to image: " + imageName + ". Error message: " + e.getMessage());
         }
     }
 }

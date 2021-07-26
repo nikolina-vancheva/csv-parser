@@ -25,7 +25,7 @@ public class InvoiceCsvReader {
             Set<String> buyers = csvToBean.stream().map(b -> b.getBuyer()).distinct().collect(Collectors.toSet());
             return buyers;
         } catch (Exception ex) {
-            log.error(ex.getMessage());
+            log.error("Unable to read the input CSV file. Error message: " + ex.getMessage());
         }
         return Collections.EMPTY_SET;
     }
